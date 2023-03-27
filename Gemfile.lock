@@ -103,6 +103,7 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    jwt (2.7.0)
     loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -230,6 +231,7 @@ DEPENDENCIES
   debug
   importmap-rails
   jbuilder
+  jwt
   omniauth
   omniauth-rails_csrf_protection
   pg (~> 1.4.5)

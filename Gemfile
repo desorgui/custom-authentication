@@ -74,3 +74,6 @@ end
 gem "tailwindcss-rails", "~> 2.0"
 gem 'omniauth'
 gem "omniauth-rails_csrf_protection"
+
+# Use JWT gem for token-based authentication
+gem 'jwt'
