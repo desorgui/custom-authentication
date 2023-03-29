@@ -1,0 +1,25 @@
+<main class="main">
+	<div class="container mx-auto">
+		<section class="wrapper">
+		<div class="heading">
+      <h2>Log in</h2>
+      <p class="text text-normal">New user? <span><%= link_to "Create an account", "/users/new", class: "text text-links" %></span></p>
+    </div>
+    <%= form_for(@user,  as: :user, url: '/users/signin', method: :post, class: "form") do |f| %>
+      <div class="input-control">
+        <%= f.label :email, class: "hidden" %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input-field", placeholder: "Your Email..." %>
+      </div>
+
+      <div class="input-control">
+        <%= f.label :password, class: "hidden" %><br />
+        <%= f.password_field :password, autocomplete: "current-password", class: "input-field", placeholder: "Your Password..." %>
+      </div>
+
+      <div class="input-control">
+        <%= f.submit "Log in", class: "input-submit" %>
+      </div>
+    <% end %>
+		</section>
+	</div>
+</main>

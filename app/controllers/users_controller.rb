@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   skip_before_action :authenticate_user, only: [:create]
-  before_action :find_user, only [:show, :update, :destroy]
+  before_action :find_user, only: [:show, :update, :destroy]
 
   def index
     @users = User.all
@@ -12,6 +12,26 @@ class UsersController < ApplicationController
 
   def show
     @user
+  end
+
+  def new
+    User.new
+  end
+
+  def signin
+    User.new
+  end
+
+  def login
+    @user = User.find_by(email: params[:email])
+    if @user&.authenticate(params[:password])
+      @token = JsonWebToken.encode(user_id: @user.id)
+      @time = Time.now + 24.hours.to_i
+      render json: { token: @token, exp: @time.strftime("%m-%d-%Y %H:%M"),
+                     user_name: @user.user_name }, status: :ok
+    else
+      render json: { error: 'unauthorized' }, status: :unauthorized
+    end
   end
 
   def create

@@ -3,6 +3,11 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  get 'auth/:provider/callback', to: 'sessions#create'
-  get '/login', to: 'sessions#new'
+  get "auth/:provider/callback", to: "sessions#create"
+  get "/login", to: "sessions#new"
+  get "/users/new", to: "users#new"
+  post "/users/new", to: "users#create"
+  get "/users/signin", to: "users#signin"
+  post "/users/sigin", to: "users#login"
+
 end

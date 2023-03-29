@@ -1,7 +1,6 @@
 require "jwt"
 
 module JwtToken
-
   extend ActiveSupport::Concern
   SECRET_KEY = Rails.application.secrets.secret_key_base.to_s
 
@@ -13,8 +12,5 @@ module JwtToken
   def decode(token)
     decoded = JWT.decode(token, SECRET_KEY)[0]
     HashWithIndifferentAccess.new decoded
-  rescue
-    nil
   end
-
 end

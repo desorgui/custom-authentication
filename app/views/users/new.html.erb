@@ -1,0 +1,31 @@
+<main class="main">
+	<div class="container mx-auto">
+		<section class="wrapper">
+		<div class="heading">
+      <h2>Sign up</h2>
+    </div>
+      <%= form_for(@user, as: :user, url: "/users/signin", method: :post) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+        <div class="input-control">
+          <%= f.label :email, class: "hidden" %><br />
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input-field", placeholder: "Your Email..." %>
+        </div>
+
+        <div class="input-control">
+          <%= f.label :password, class: "hidden" %>
+          <%= f.password_field :password, autocomplete: "new-password", class: "input-field", placeholder: "Your Password (6 characters minimum)" %>
+        </div>
+
+        <div class="input-control">
+          <%= f.label :password_confirmation, class: "hidden" %><br />
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input-field", placeholder: "Confirm Password..." %>
+        </div>
+
+        <div class="input-control">
+          <%= f.submit "Sign up", class: "input-submit" %>
+        </div>
+      <% end %>
+		</section>
+	</div>
+</main>
