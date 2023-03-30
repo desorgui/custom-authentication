@@ -4,8 +4,12 @@
 		<div class="heading">
       <h2>Sign up</h2>
     </div>
-      <%= form_for(@user, as: :user, url: "/users/signin", method: :post) do |f| %>
-        <%= render "devise/shared/error_messages", resource: resource %>
+      <%= form_for(User.new, as: :user, url: "/users/new", method: :post) do |f| %>
+
+        <div class="input-control">
+          <%= f.label :user_name, class: "hidden" %><br />
+          <%= f.text_field :user_name, autofocus: true, autocomplete: "user_name", class: "input-field", placeholder: "Your Username..." %>
+        </div>
 
         <div class="input-control">
           <%= f.label :email, class: "hidden" %><br />
