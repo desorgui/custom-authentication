@@ -40,7 +40,7 @@ class UsersController < ApplicationController
       if @user.save
         format.html { redirect_to '/', notice: 'User was successfully created.' }
       else
-        format.html { render :new }
+        format.html { render :new, alert: @user.errors.full_messages }
       end
     end
   end
