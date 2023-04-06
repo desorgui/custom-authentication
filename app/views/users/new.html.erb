@@ -1,33 +1,29 @@
 <main class="main">
 	<div class="container mx-auto">
 		<section class="wrapper">
-		<div class="heading">
-      <h2>Sign up</h2>
-    </div>
-      <%= form_for(User.new, as: :user, url: "/users/new", method: :post) do |f| %>
+      <%= form_for(User.new, as: :user, html: {class: "lg:w-1/3 md:w-1/2 bg-white m-auto p-8 mt-12 flex flex-col gap-4 items-center"}, url: "/users/new", method: :post) do |f| %>
 
-        <div class="input-control">
-          <%= f.label :user_name, class: "hidden" %><br />
-          <%= f.text_field :user_name, autofocus: true, autocomplete: "user_name", class: "input-field", placeholder: "Your Username..." %>
+        <div class="heading">
+          <h2 class="text-3xl">Sign up</h2>
         </div>
 
-        <div class="input-control">
-          <%= f.label :email, class: "hidden" %><br />
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input-field", placeholder: "Your Email..." %>
+        <div class="input-control w-full">
+          <%= f.label :user_name, class: "hidden" %>
+          <%= f.text_field :user_name, autofocus: true, autocomplete: "user_name", class: "border outline-none autofill:bg-[#fff] input-field w-full rounded-lg p-3", placeholder: "Your Username..." %>
         </div>
 
-        <div class="input-control">
+        <div class="input-control w-full">
+          <%= f.label :email, class: "hidden" %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "border outline-none autofill:bg-[#fff] input-field w-full rounded-lg p-3", placeholder: "Your Email..." %>
+        </div>
+
+        <div class="input-control w-full">
           <%= f.label :password, class: "hidden" %>
-          <%= f.password_field :password, autocomplete: "new-password", class: "input-field", placeholder: "Your Password (6 characters minimum)" %>
+          <%= f.password_field :password, autocomplete: "new-password", class: "border outline-none autofill:bg-[#fff] input-field w-full rounded-lg p-3", placeholder: "Your Password (6 characters minimum)" %>
         </div>
 
         <div class="input-control">
-          <%= f.label :password_confirmation, class: "hidden" %><br />
-          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input-field", placeholder: "Confirm Password..." %>
-        </div>
-
-        <div class="input-control">
-          <%= f.submit "Sign up", class: "input-submit" %>
+          <%= f.submit "Sign up", class: "input-submit py-2 px-8 bg-blue-500 text-white rounded-md hover:bg-blue-900 cursor-pointer" %>
         </div>
       <% end %>
 		</section>

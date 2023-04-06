@@ -9,5 +9,4 @@ Rails.application.routes.draw do
   post "/users/new", to: "users#create"
   get "/users/signin", to: "users#signin"
   post "/users/sigin", to: "users#login"
-
 end
