@@ -1,0 +1,8 @@
+<%= link_to "New User", '/users/new' %>
+
+<% @users.each do |user| %>
+  <div class="user">
+    <h2><%= user.user_name %></h2>
+    <p><%= user.email %></p>
+  </div>
+<% end %>

@@ -1,13 +1,10 @@
 class UsersController < ApplicationController
 
-  skip_before_action :authenticate_user, only: [:create, :new]
+  skip_before_action :authenticate_user, only: [:new, :create, :login, :signin]
   before_action :find_user, only: [:show, :update, :destroy]
 
   def index
     @users = User.all
-    respond_to do |format|
-      format.html { render :index }
-    end
   end
 
   def show
@@ -23,14 +20,16 @@ class UsersController < ApplicationController
   end
 
   def login
-    @user = User.find_by(email: params[:email])
-    if @user&.authenticate(params[:password])
-      @token = JsonWebToken.encode(user_id: @user.id)
-      @time = Time.now + 24.hours.to_i
-      render json: { token: @token, exp: @time.strftime("%m-%d-%Y %H:%M"),
-                     user_name: @user.user_name }, status: :ok
-    else
-      render json: { error: 'unauthorized' }, status: :unauthorized
+    @user = User.find_by(user_name: params[:user][:user_name])
+    respond_to do |format|
+      if @user&.authenticate(params[:user][:password])
+        @token = ApplicationController.encode(user_id: @user.id)
+        cookies.signed[:jwt] = { value: @token, httponly: true, expires: 24.hours.from_now }
+        @time = Time.now + 24.hours.to_i
+        format.html { redirect_to '/', notice: 'User was successfully logged in.' }
+      else 
+        render json: { error: 'unauthorized' }, status: :unauthorized
+      end
     end
   end
 
@@ -40,7 +39,7 @@ class UsersController < ApplicationController
       if @user.save
         format.html { redirect_to '/', notice: 'User was successfully created.' }
       else
-        format.html { render :new, alert: @user.errors.full_messages }
+        format.html { redirect_to '/users/new', alert: @user.errors.full_messages }
       end
     end
   end
@@ -66,6 +65,10 @@ class UsersController < ApplicationController
 
   def find_user
     @user = User.find(params[:id])
+  end
+
+  def login_params
+    params.require(:user).permit(:user_name, :password)
   end
 
   def user_params
