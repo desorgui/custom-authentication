@@ -11,6 +11,11 @@ class UsersController < ApplicationController
     @user
   end
 
+  def create_user
+    user_info = request.env['omniauth.auth']
+    raise user_info # Your own session management should be placed here.
+  end
+
   def new
     User.new
   end
