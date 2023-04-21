@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  skip_before_action :authenticate_user, only: [:new, :create, :login, :signin, :create_user]
+  skip_before_action :authenticate_user, only: [:new, :create, :login, :signin, :social_login]
   before_action :find_user, only: [:show, :update, :destroy]
 
   def index
@@ -11,14 +11,29 @@ class UsersController < ApplicationController
     @user
   end
 
-  def create_user
+  def social_login
     user_info = request.env['omniauth.auth']
     uid =  user_info.uid
     email = user_info.info['email']
-    p email
+    name = user_info.info['name']
+    avatar = user_info.info['image']
+    user_name = user_info.info['nickname']
 
-    redirect_to '/'
-    # raise user_info # Your own session management should be placed here.
+    user = User.find_by(email: email)
+   
+       if user.nil?
+         # If the user doesn't exist, create a new user
+         user = User.create!(
+           user_name: email,
+           email: email,
+           name: name,
+           password: SecureRandom.hex(8)
+         )
+       end
+       p user_name
+       @token = ApplicationController.encode(user_id: user.id)
+       cookies.signed[:jwt] = { value: @token, httponly: true, expires: 24.hours.from_now }
+       redirect_to root_path, notice: 'Signed in!'
   end
 
   def new
