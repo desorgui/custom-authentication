@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  skip_before_action :authenticate_user, only: [:new, :create, :login, :signin]
+  skip_before_action :authenticate_user, only: [:new, :create, :login, :signin, :create_user]
   before_action :find_user, only: [:show, :update, :destroy]
 
   def index
@@ -13,7 +13,12 @@ class UsersController < ApplicationController
 
   def create_user
     user_info = request.env['omniauth.auth']
-    raise user_info # Your own session management should be placed here.
+    uid =  user_info.uid
+    email = user_info.info['email']
+    p email
+
+    redirect_to '/'
+    # raise user_info # Your own session management should be placed here.
   end
 
   def new

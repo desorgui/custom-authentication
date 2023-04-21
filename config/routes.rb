@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   root "users#index"
   post "auth/developer/callback", to: "users#create_user"
   post "auth/github/callback", to: "users#create_user"
+  get "auth/facebook/callback", to: "users#create_user"
+  post "auth/facebook/callback", to: "users#create_user"
+  post "auth/google_oauth2/callback", to: "users#create_user"
+  get "auth/google_oauth2/callback", to: "users#create_user"
 
   get "/login", to: "sessions#new"
   get "/users/new", to: "users#new"

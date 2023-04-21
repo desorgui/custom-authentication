@@ -76,5 +76,19 @@ gem 'omniauth'
 gem "omniauth-rails_csrf_protection"
 gem 'omniauth-github'
 
+# Add aumniauth for google
+gem 'omniauth-google-oauth2'
+
+# Add aumniauth for facebook
+gem 'omniauth-facebook'
+
+# Add aumniauth for twitter
+
+gem 'omniauth-twitter'
+
+# Add aumniauth for linkedin
+
+gem 'omniauth-linkedin-oauth2'
+
 # Use JWT gem for token-based authentication
 gem 'jwt'
